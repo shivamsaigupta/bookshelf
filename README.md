@@ -1,7 +1,7 @@
-# library_tracker
+# Bookshelf
 
-Lets you keep track of the books you've read. Implemented in pure javascript.
+Keep track of the books you've read. Implemented in pure javascript.
 
 *Work in Progress*
 
-[View in Browser](https://shivamsaigupta.github.io/library_tracker/)
+[View in Browser](https://shivamsaigupta.github.io/bookshelf/)
