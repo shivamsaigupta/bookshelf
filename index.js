@@ -182,13 +182,22 @@ function removeBook(bookId){
 
 function modifyBook(book){
   // expects book to be an object
+  let readText = '';
+  let readToggleText = '';
+
   if(book.read){
     readText = "read"
+    readToggleText = "Unread"
   }else{
     readText = "not read yet";
+    readToggleText = "Read"
   }
   let bookInfo = document.querySelector(`.book-container[id='${book.id}'] .book-info`);
   bookInfo.textContent = `${book.title} by ${book.author}, ${book.pages}, ${readText}.`
+
+  let readBtn = document.querySelector(`.book-container[id='${book.id}'] .readBtn`);
+  readBtn.textContent = readToggleText;
+
   updateLocalStorage();
 }
 
@@ -219,7 +228,7 @@ function addBookToDom(book){
 
   let readBtn = document.createElement("div");
   readBtn.classList.add('readBtn');
-  readBtn.textContent = 'read';
+  readBtn.textContent = 'Read';
   readBtn.addEventListener('click', (e) => {
     toggleRead(e.target.parentElement.attributes.id.value);
   });

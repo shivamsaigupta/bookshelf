@@ -78,7 +78,7 @@ li{
   color: red;
   font-weight: bold;
   font-size: 14px;
-  margin-left: 2px;
+  margin-left: 4px;
 }
 
 .remove:hover{
@@ -92,7 +92,7 @@ li{
   color: blue;
   font-weight: bold;
   font-size: 14px;
-  margin-left: 2px;
+  margin-left: 4px;
 }
 
 .readBtn:hover{
