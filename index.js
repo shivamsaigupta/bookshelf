@@ -1,3 +1,7 @@
+// TODO: Add book details by ISBN
+// TODO: Add book image
+// TODO: Add a tileview for books
+
 let myLibrary = [
   {
     id: 0,
@@ -108,6 +112,11 @@ function showError(msg){
   libraryContainer.prepend(errorMsg);
 }
 
+function toggleRead(bookId){
+  myLibrary[bookId].read = !myLibrary[bookId].read;
+  modifyBook(myLibrary[bookId]);
+}
+
 function removeBook(bookId){
   //Starting at index bookId, remove 1 element
   //remove from array
@@ -116,6 +125,17 @@ function removeBook(bookId){
   const elementToDelete = document.querySelector(`.book-container[id='${bookId}']`);
   console.log('element to delete: ', elementToDelete)
   libraryContainer.removeChild(elementToDelete);
+}
+
+function modifyBook(book){
+  // expects book to be an object
+  if(book.read){
+    readText = "read"
+  }else{
+    readText = "not read yet";
+  }
+  let bookInfo = document.querySelector(`.book-container[id='${book.id}'] .book-info`);
+  bookInfo.textContent = `${book.title} by ${book.author}, ${book.pages}, ${readText}.`
 }
 
 function addBookToDom(book){
@@ -142,6 +162,14 @@ function addBookToDom(book){
     removeBook(e.target.parentElement.attributes.id.value);
   });
   bookContainer.appendChild(del);
+
+  let readBtn = document.createElement("div");
+  readBtn.classList.add('readBtn');
+  readBtn.textContent = 'read';
+  readBtn.addEventListener('click', (e) => {
+    toggleRead(e.target.parentElement.attributes.id.value);
+  });
+  bookContainer.appendChild(readBtn);
 }
 
 function render(){

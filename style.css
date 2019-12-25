@@ -87,3 +87,17 @@ li{
   font-size: 18px;
   cursor: pointer;
 }
+
+.readBtn{
+  color: blue;
+  font-weight: bold;
+  font-size: 14px;
+  margin-left: 2px;
+}
+
+.readBtn:hover{
+  color: maroon;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+}
