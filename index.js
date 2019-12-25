@@ -39,9 +39,10 @@ function Book(title, author, pages, read){
 }
 
 function onAddBtnClick(){
-  const inputTitle = document.getElementsByName("title")[0].value;
-  const inputAuthor = document.getElementsByName("author")[0].value;
-  const inputPages = document.getElementsByName("pages")[0].value;
+  const title = document.getElementsByName("title")[0].value;
+  const author = document.getElementsByName("author")[0].value;
+  const pages = document.getElementsByName("pages")[0].value;
+  const read = document.getElementsByName("read")[0].checked;
 
   //reset error msg
   let errElement = document.querySelector("#error");
@@ -49,10 +50,26 @@ function onAddBtnClick(){
     libraryContainer.removeChild(errElement);
   }
 
-  //Type check
-  if(inputTitle === '' || inputAuthor === '' || inputPages === ''){
-    showError('Please fill all the fields')
+  // Form data validation
+  if(title === '' || author === '' || pages === ''){
+    showError('Please fill all the fields');
+    return;
   }
+
+  // TODO : look at the ID of the last element of the array, then increment it and add it to bookObj
+
+  let bookObj = {
+    title,
+    author,
+    pages,
+    read
+  }
+
+  // Add to the array
+  myLibrary.push(bookObj);
+
+  // Update the DOM
+  addBookToDom(bookObj);
 
 }
 
@@ -79,34 +96,37 @@ function removeBook(bookId){
   libraryContainer.removeChild(elementToDelete);
 }
 
+function addBookToDom(book){
+  // expects book to be an object
+  if(book.read){
+    readText = "read"
+  }else{
+    readText = "not read yet";
+  }
+  let bookContainer = document.createElement("div");
+  bookContainer.classList.add('book-container');
+  bookContainer.setAttribute("id", book.id);
+  libraryContainer.appendChild(bookContainer);
+
+  let bookInfo = document.createElement("div");
+  bookInfo.classList.add('book-info');
+  bookInfo.textContent = `${book.title} by ${book.author}, ${book.pages}, ${readText}.`
+  bookContainer.appendChild(bookInfo);
+
+  let del = document.createElement("div");
+  del.classList.add('remove');
+  del.textContent = 'X';
+  del.addEventListener('click', (e) => {
+    removeBook(e.target.parentElement.attributes.id.value);
+  });
+  bookContainer.appendChild(del);
+}
+
 function render(){
   let readText;
   console.log(myLibrary);
   myLibrary.forEach((book) => {
-
-    if(book.read){
-      readText = "read"
-    }else{
-      readText = "not read yet";
-    }
-    let bookContainer = document.createElement("div");
-    bookContainer.classList.add('book-container');
-    bookContainer.setAttribute("id", book.id);
-    libraryContainer.appendChild(bookContainer);
-
-    let bookInfo = document.createElement("div");
-    bookInfo.classList.add('book-info');
-    bookInfo.textContent = `${book.title} by ${book.author}, ${book.pages}, ${readText}.`
-    bookContainer.appendChild(bookInfo);
-
-    let del = document.createElement("div");
-    del.classList.add('remove');
-    del.textContent = 'X';
-    del.addEventListener('click', (e) => {
-      removeBook(e.target.parentElement.attributes.id.value);
-    });
-    bookContainer.appendChild(del);
-
+    addBookToDom(book)
   });
 }
 
