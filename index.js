@@ -77,22 +77,6 @@ function updateLocalStorage(){
   }
 }
 
-function Book(title, author, pages, read){
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-
-  // TODO: take info function out of here and use prototype to define it instead
-  this.info = function(){
-    let readText = "not read yet";
-    if(read){
-      readText = "read"
-    }
-    return `${this.title} by ${this.author}, ${this.pages}, ${readText}.`
-  }
-}
-
 function onAddBtnClick(){
   let titleElement = document.getElementById("title");
   let authorElement = document.getElementById("author");
@@ -250,7 +234,3 @@ btnRef.addEventListener('click', (e) => {
 
 runAtStart();
 render();
-
-const HarryPotter = new Book("Harry Potter", "J.K. Rowling", 545, true);
-
-console.log(HarryPotter.info());
