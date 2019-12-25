@@ -1,0 +1,89 @@
+body{
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(to right, #fafafa, #f6f6f6);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header{
+  flex: 1;
+  text-align: center;
+  font-size: 26px;
+  line-height: 39px;
+  font-family: inherit;
+  color: #2a2a2a;
+  padding: 6px;
+  background-color: #B3E2AA;
+}
+
+li{
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.main-container{
+  flex: 1;
+  font-family: inherit;
+  text-align: center;
+  border: 2px solid #B3E2AA;
+  padding: 6px;
+}
+
+.text-input{
+  font-family: inherit;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.button{
+  font-family: inherit;
+  font-size: 14px;
+  padding: 4px;
+  border-radius: 4px;
+  color: #2a2a2a;
+  background-color: #fafafa;
+}
+
+.button:hover{
+  background-color: #B3E2AA;
+  color: #151515;
+  cursor: pointer;
+}
+
+.button:active{
+  background-color: #60B54F
+}
+
+.library-container{
+  flex: 1;
+  padding: 8px 0px;
+  margin-top: 4px;
+  border-top: 2px solid #B3E2AA;
+}
+
+.book-container{
+  display: flex;
+  flex: 2;
+  flex-direction: row;
+  margin: 4px 0px;
+  justify-content: center;
+}
+
+.book-info{
+
+}
+
+.remove{
+  color: red;
+  font-weight: bold;
+  font-size: 14px;
+  margin-left: 2px;
+}
+
+.remove:hover{
+  color: maroon;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+}

@@ -2,9 +2,28 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>My Library</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <header>
+      My Library
+    </header>
+    <section class="main-container">
+      <div class="form">
+        <input class="text-input" type="text" name="title" placeholder="Title" />
+        <input class="text-input" type="text" name="author" placeholder="Author" />
+        <input class="text-input" type="text" name="pages" placeholder="Pages" />
+        <input class="text-input" type="checkbox" name="read" placeholder="Read" />Read
+        <input class="button" type="button" name="submit" value="Add Book">
+      </div>
+      <div class="library-container">
+        <div class="book-container">
+          <div class="book-info"></div><div class="remove"></div>
+        </div>
+      </div>
+    </section>
     <script src="index.js" charset="utf-8"></script>
   </body>
 </html>
