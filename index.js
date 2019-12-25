@@ -28,11 +28,62 @@ let myLibrary = [
 
 const libraryContainer = document.querySelector(".library-container");
 
+function storageAvailable(type) {
+    var storage;
+    try {
+        storage = window[type];
+        var x = '__storage_test__';
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+    }
+    catch(e) {
+        return e instanceof DOMException && (
+            // everything except Firefox
+            e.code === 22 ||
+            // Firefox
+            e.code === 1014 ||
+            // test name field too, because code might not be present
+            // everything except Firefox
+            e.name === 'QuotaExceededError' ||
+            // Firefox
+            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+            // acknowledge QuotaExceededError only if there's something already stored
+            (storage && storage.length !== 0);
+    }
+}
+
+function runAtStart(){
+  if (storageAvailable('localStorage')) {
+    if(!localStorage.getItem('myLibrary')){
+      localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+    }else{
+      const retrievedObject = localStorage.getItem('myLibrary');
+      let parsed = JSON.parse(retrievedObject);
+      console.log("parsed ", parsed);
+      myLibrary = parsed;
+    }
+  }
+  else {
+    console.log('local storage not available');
+  }
+}
+
+function updateLocalStorage(){
+  if (storageAvailable('localStorage')) {
+    localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+  }else{
+    console.log('local storage not available');
+  }
+}
+
 function Book(title, author, pages, read){
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
+
+  // TODO: take info function out of here and use prototype to define it instead
   this.info = function(){
     let readText = "not read yet";
     if(read){
@@ -79,6 +130,7 @@ function onAddBtnClick(){
 
   // Add to the array
   myLibrary.push(bookObj);
+  updateLocalStorage();
 
   // Update the DOM
   addBookToDom(bookObj);
@@ -125,6 +177,7 @@ function removeBook(bookId){
   const elementToDelete = document.querySelector(`.book-container[id='${bookId}']`);
   console.log('element to delete: ', elementToDelete)
   libraryContainer.removeChild(elementToDelete);
+  updateLocalStorage();
 }
 
 function modifyBook(book){
@@ -136,6 +189,7 @@ function modifyBook(book){
   }
   let bookInfo = document.querySelector(`.book-container[id='${book.id}'] .book-info`);
   bookInfo.textContent = `${book.title} by ${book.author}, ${book.pages}, ${readText}.`
+  updateLocalStorage();
 }
 
 function addBookToDom(book){
@@ -185,6 +239,7 @@ btnRef.addEventListener('click', (e) => {
   onAddBtnClick();
 });
 
+runAtStart();
 render();
 
 const HarryPotter = new Book("Harry Potter", "J.K. Rowling", 545, true);
