@@ -22,6 +22,8 @@ let myLibrary = [
   }
 ];
 
+const libraryContainer = document.querySelector(".library-container");
+
 function Book(title, author, pages, read){
   this.title = title;
   this.author = author;
@@ -36,23 +38,51 @@ function Book(title, author, pages, read){
   }
 }
 
+function onAddBtnClick(){
+  const inputTitle = document.getElementsByName("title")[0].value;
+  const inputAuthor = document.getElementsByName("author")[0].value;
+  const inputPages = document.getElementsByName("pages")[0].value;
+
+  //reset error msg
+  let errElement = document.querySelector("#error");
+  if(errElement != null){
+    libraryContainer.removeChild(errElement);
+  }
+
+  //Type check
+  if(inputTitle === '' || inputAuthor === '' || inputPages === ''){
+    showError('Please fill all the fields')
+  }
+
+}
+
+function showError(msg){
+  if (typeof(msg) != 'string') return
+
+  let errElement = document.querySelector("#error");
+  if(errElement != null) return;
+
+  const errorMsg = document.createElement('h4')
+  errorMsg.style.cssText = 'color: maroon; font-weight: bold;'
+  errorMsg.id = "error";
+  errorMsg.textContent = msg;
+  libraryContainer.prepend(errorMsg);
+}
+
 function removeBook(bookId){
   //Starting at index bookId, remove 1 element
   //remove from array
   myLibrary.splice(bookId, 1);
   //remove from DOM
-  const libraryContainer = document.querySelector(".library-container");
   const elementToDelete = document.querySelector(`.book-container[id='${bookId}']`);
   console.log('element to delete: ', elementToDelete)
   libraryContainer.removeChild(elementToDelete);
 }
 
 function render(){
-  const libraryContainer = document.querySelector(".library-container");
   let readText;
   console.log(myLibrary);
   myLibrary.forEach((book) => {
-    console.log(book);
 
     if(book.read){
       readText = "read"
@@ -79,6 +109,11 @@ function render(){
 
   });
 }
+
+const btnRef = document.querySelector(".button");
+btnRef.addEventListener('click', (e) => {
+  onAddBtnClick();
+});
 
 render();
 
