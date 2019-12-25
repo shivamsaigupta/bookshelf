@@ -39,10 +39,12 @@ function Book(title, author, pages, read){
 }
 
 function onAddBtnClick(){
-  const title = document.getElementsByName("title")[0].value;
-  const author = document.getElementsByName("author")[0].value;
-  const pages = document.getElementsByName("pages")[0].value;
-  const read = document.getElementsByName("read")[0].checked;
+  let titleElement = document.getElementById("title");
+  let authorElement = document.getElementById("author");
+  let pagesElement = document.getElementById("pages");
+  let readElement = document.getElementById("read");
+
+  let [title, author, pages, read] = [titleElement.value, authorElement.value, pagesElement.value, readElement.checked];
 
   //reset error msg
   let errElement = document.querySelector("#error");
@@ -55,10 +57,16 @@ function onAddBtnClick(){
     showError('Please fill all the fields');
     return;
   }
+  if(isNaN(pages)){
+    showError('Page number must be a number');
+    return;
+  }
 
-  // TODO : look at the ID of the last element of the array, then increment it and add it to bookObj
+  let id = myLibrary[myLibrary.length -1].id;
+  id++;
 
   let bookObj = {
+    id,
     title,
     author,
     pages,
@@ -70,6 +78,20 @@ function onAddBtnClick(){
 
   // Update the DOM
   addBookToDom(bookObj);
+
+  // Reset form values
+  resetFormValues(titleElement, authorElement, pagesElement);
+  readElement.checked = false;
+}
+
+//expects input DOM elements as arguments
+function resetFormValues(){
+  if(arguments.length === 0) return
+  for(let i=0; i<arguments.length; i++){
+    if('value' in arguments[i]){
+      arguments[i].value = '';
+    }
+  }
 
 }
 
