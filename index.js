@@ -99,6 +99,9 @@ function onAddBtnClick(){
   if(isNaN(pages)){
     showError('Page number must be a number');
     return;
+  }else if(pages > 3000){
+    showError('Pages more than 3000 not supported');
+    return;
   }
 
   let id = myLibrary[myLibrary.length -1].id;
@@ -107,7 +110,7 @@ function onAddBtnClick(){
   }else{
     id++;
   }
-  
+
   let bookObj = {
     id,
     title,
