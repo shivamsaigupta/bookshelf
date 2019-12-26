@@ -104,10 +104,9 @@ function onAddBtnClick(){
     return;
   }
 
-  let id = myLibrary[myLibrary.length -1].id;
-  if(id == undefined){
-    id = 0;
-  }else{
+  let id = 0;
+  if(! (myLibrary[myLibrary.length -1] == undefined)){
+    id = myLibrary[myLibrary.length -1].id;
     id++;
   }
 
