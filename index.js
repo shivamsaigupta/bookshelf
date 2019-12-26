@@ -102,8 +102,12 @@ function onAddBtnClick(){
   }
 
   let id = myLibrary[myLibrary.length -1].id;
-  id++;
-
+  if(id == undefined){
+    id = 0;
+  }else{
+    id++;
+  }
+  
   let bookObj = {
     id,
     title,
